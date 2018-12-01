@@ -9,12 +9,7 @@ class DBOperator(object):
 
     def __init__(self, db, limit=10):
         self.db = db
-        self.limit = 10
-    #     self.connection_test()
-    #
-    # def connection_test(self):
-    #     self.loop.run_until_complete(self.get_fresh_items())
-
+        self.limit = limit
 
     def execute_task(self, method):
         result = self.loop.run_until_complete(method)

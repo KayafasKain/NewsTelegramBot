@@ -7,7 +7,7 @@ class BotCore():
     bot_dict = {
         'start': 'Wellcome! Here you can get some news. You can learn about commands when type: "/commands"',
         'commands': '''
-            1) everypony.ru - "/watch everypony" to start recieving news from everypony or "/unwatch_everypony" to stop watching pony news 
+            1) everypony.ru - "/watch everypony" to start recieving news from everypony or "/unwatch everypony" to stop watching pony news 
         '''
     }
 
@@ -40,6 +40,7 @@ class BotCore():
         self.dispatcher.add_handler(CommandHandler('start', self.start))
         self.dispatcher.add_handler(CommandHandler('commands', self.commands))
         self.dispatcher.add_handler(CommandHandler('watch', self.watch, pass_args=True))
+        self.dispatcher.add_handler(CommandHandler('unwatch', self.unwatch, pass_args=True))
         self.updater.start_polling()
 
     def start(self, bot, update):
@@ -58,6 +59,14 @@ class BotCore():
             subscriber = self.db.execute_task(self.db.find_subscriber(update.message.chat_id))
             if 'everypony' not in subscriber['preferences']:
                 subscriber['preferences'].append('everypony')
+                self.db.execute_task(self.db.update_subscriber(subscriber))
+
+    def unwatch(self, bot, update, args):
+        command = " ".join(args)
+        if re.match(self.watch_dict['everypony'], command):
+            subscriber = self.db.execute_task(self.db.find_subscriber(update.message.chat_id))
+            if 'everypony' in subscriber['preferences']:
+                subscriber['preferences'].remove('everypony')
                 self.db.execute_task(self.db.update_subscriber(subscriber))
 
     def aggregate_news(self, bot, size, subscriber_size=10):
