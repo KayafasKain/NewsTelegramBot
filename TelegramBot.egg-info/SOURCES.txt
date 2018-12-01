@@ -1,6 +1,0 @@
-setup.py
-./TelegramBot/start_bot.py
-TelegramBot.egg-info/PKG-INFO
-TelegramBot.egg-info/SOURCES.txt
-TelegramBot.egg-info/dependency_links.txt
-TelegramBot.egg-info/top_level.txt
