@@ -1,6 +1,6 @@
 import asyncio
-from scrapy.utils.serialize import ScrapyJSONEncoder
-_encoder = ScrapyJSONEncoder()
+import logging
+import motor.motor_asyncio
 
 
 class DBOperator(object):
