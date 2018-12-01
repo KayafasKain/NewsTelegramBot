@@ -7,5 +7,6 @@ setup(
     license='',
     author='Bismarck',
     author_email='',
-    description=''
+    description='',
+    scripts=['./TelegramBot/start_bot.py']
 )
