@@ -1,1 +1,1 @@
-web: python TelegramBot/start_bot.py 2288
+web: python TelegramBot/start_bot.py
