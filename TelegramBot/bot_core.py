@@ -1,4 +1,4 @@
-from telegram.ext import Updater, CommandHandler, Dispatcher
+from telegram.ext import Updater, CommandHandler
 import re
 import math
 

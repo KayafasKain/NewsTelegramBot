@@ -1,6 +1,4 @@
 import asyncio
-import logging
-import motor.motor_asyncio
 from scrapy.utils.serialize import ScrapyJSONEncoder
 _encoder = ScrapyJSONEncoder()
 
