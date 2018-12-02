@@ -7,7 +7,8 @@ class BotCore():
     bot_dict = {
         'start': 'Wellcome! Here you can get some news. You can learn about commands when type: "/commands"',
         'commands': '''
-            1) everypony.ru - "/watch everypony" to start recieving news from everypony or "/unwatch everypony" to stop watching pony news 
+            1) everypony.ru - "/watch everypony" to start recieving news from everypony or "/unwatch everypony" to stop watching pony news
+            1) bbc.com - "/watch bbc" to start recieving news from bbc or "/unwatch bbc" to stop watching pony news 
         '''
     }
 
