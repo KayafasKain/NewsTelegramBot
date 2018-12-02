@@ -64,6 +64,9 @@ class BotCore():
                 if preference not in subscriber['preferences']:
                     subscriber['preferences'].append(preference)
                     self.db.execute_task(self.db.update_subscriber(subscriber))
+                    bot.send_message(chat_id=update.message.chat_id, text="now you watch " + preference)
+                    return
+        bot.send_message(chat_id=update.message.chat_id, text="something went wrong")
 
     def unwatch(self, bot, update, args):
         command = " ".join(args)
@@ -73,6 +76,9 @@ class BotCore():
                 if preference in subscriber['preferences']:
                     subscriber['preferences'].remove(preference)
                     self.db.execute_task(self.db.update_subscriber(subscriber))
+                    bot.send_message(chat_id=update.message.chat_id, text="you watch " + preference + " no more " )
+                    return
+        bot.send_message(chat_id=update.message.chat_id, text="something went wrong")
 
     def aggregate_news(self, bot, size, subscriber_size=10):
         news = {}
