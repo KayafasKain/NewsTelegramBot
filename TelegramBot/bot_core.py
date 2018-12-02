@@ -12,11 +12,13 @@ class BotCore():
     }
 
     watch_dict = {
-        'everypony': r'ever[i|y]pon[i|y]'
+        'everypony': r'ever[i|y]pon[i|y]',
+        'bbc': r'bbc'
     }
 
     preferences = [
-        'everypony'
+        'everypony',
+        'bbc'
     ]
 
     def __init__(self, token, bot_dict=None, db=None, job_interval=600):
@@ -55,19 +57,21 @@ class BotCore():
 
     def watch(self, bot, update, args):
         command = " ".join(args)
-        if re.match(self.watch_dict['everypony'], command):
-            subscriber = self.db.execute_task(self.db.find_subscriber(update.message.chat_id))
-            if 'everypony' not in subscriber['preferences']:
-                subscriber['preferences'].append('everypony')
-                self.db.execute_task(self.db.update_subscriber(subscriber))
+        for preference in self.preferences:
+            if re.match(self.watch_dict[preference], command):
+                subscriber = self.db.execute_task(self.db.find_subscriber(update.message.chat_id))
+                if preference not in subscriber['preferences']:
+                    subscriber['preferences'].append(preference)
+                    self.db.execute_task(self.db.update_subscriber(subscriber))
 
     def unwatch(self, bot, update, args):
         command = " ".join(args)
-        if re.match(self.watch_dict['everypony'], command):
-            subscriber = self.db.execute_task(self.db.find_subscriber(update.message.chat_id))
-            if 'everypony' in subscriber['preferences']:
-                subscriber['preferences'].remove('everypony')
-                self.db.execute_task(self.db.update_subscriber(subscriber))
+        for preference in self.preferences:
+            if re.match(self.watch_dict[preference], command):
+                subscriber = self.db.execute_task(self.db.find_subscriber(update.message.chat_id))
+                if preference in subscriber['preferences']:
+                    subscriber['preferences'].remove(preference)
+                    self.db.execute_task(self.db.update_subscriber(subscriber))
 
     def aggregate_news(self, bot, size, subscriber_size=10):
         news = {}
